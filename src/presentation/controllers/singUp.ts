@@ -1,13 +1,15 @@
-import { IHttpRequest, IHttpResponse } from './protocols/http'
+import { MissingParamError } from '../errors/missing-param-error'
+import { BadRequest } from '../helpers/http-helper'
+import { IHttpRequest, IHttpResponse } from '../protocols/http'
 
 export class SingUpController {
   handle (httpRequest: IHttpRequest): IHttpResponse {
     if (!httpRequest.body.name) {
-      return { statusCode: 400, body: new Error('Missing param: name') }
+      return BadRequest(new MissingParamError('name'))
     }
 
     if (!httpRequest.body.email) {
-      return { statusCode: 400, body: new Error('Missing param: email') }
+      return BadRequest(new MissingParamError('email'))
     }
 
     return { statusCode: 200, body: {} }
