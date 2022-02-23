@@ -1,8 +1,9 @@
 import { MissingParamError } from '../errors/missing-param-error'
 import { BadRequest } from '../helpers/http-helper'
 import { IHttpRequest, IHttpResponse } from '../protocols/http'
+import { Controller } from '../protocols/controller'
 
-export class SingUpController {
+export class SingUpController implements Controller {
   handle (httpRequest: IHttpRequest): IHttpResponse {
     const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
