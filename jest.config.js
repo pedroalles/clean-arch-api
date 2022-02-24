@@ -8,7 +8,5 @@ module.exports = {
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
-  coveragePathIgnorePatterns: [
-    'protocols'
-  ]
+  coveragePathIgnorePatterns: ['protocols']
 }
