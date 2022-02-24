@@ -1,7 +1,7 @@
-import { badRequest, serverError } from '../helpers/http-helper'
-import { MissingParamError, InvalidParamError } from '../errors'
-import { IHttpRequest, IHttpResponse, Controller, IEmailValidator } from '../protocols'
-import { IAddAccount } from '../../domain/usecases/add-account'
+import { badRequest, serverError } from '../../helpers/http-helper'
+import { MissingParamError, InvalidParamError } from '../../errors'
+import { IHttpRequest, IHttpResponse, Controller, IEmailValidator } from '../../protocols'
+import { IAddAccount } from '../../../domain/usecases/add-account'
 
 export class SingUpController implements Controller {
   constructor (private readonly emailValidator: IEmailValidator, private readonly addAccount: IAddAccount) {}
