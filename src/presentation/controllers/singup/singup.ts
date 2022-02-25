@@ -6,7 +6,7 @@ import { IAddAccount } from '../../../domain/usecases/add-account'
 export class SingUpController implements Controller {
   constructor (private readonly emailValidator: IEmailValidator, private readonly addAccount: IAddAccount) {}
 
-  handle (httpRequest: IHttpRequest): IHttpResponse {
+  async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
       for (const field of requiredFields) {
@@ -18,7 +18,7 @@ export class SingUpController implements Controller {
       }
       const isValid = this.emailValidator.isValid(email)
       if (!isValid) return badRequest(new InvalidParamError('email'))
-      const account = this.addAccount.add({
+      const account = await this.addAccount.add({
         name, email, password
       })
       return ok(account)
