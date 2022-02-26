@@ -3,9 +3,7 @@ import { IAddAccount, IAddAccountModel } from '../../../domain/usecases/add-acco
 import { IEncrypter } from '../../protocols/encrypter'
 
 export class DbAddAccount implements IAddAccount {
-  constructor (private readonly encrypter: IEncrypter) {
-
-  }
+  constructor (private readonly encrypter: IEncrypter) {}
 
   async add (account: IAddAccountModel): Promise<IAccountModel> {
     const hashedPassword = await this.encrypter.encrypt(account.password)
