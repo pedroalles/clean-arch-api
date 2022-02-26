@@ -2,6 +2,10 @@ import { IAccountModel } from '../../../../domain/models/account'
 import { MongoHelper } from '../helpers/mongodb-helper'
 import { AccountMongodbRespository } from './account'
 
+const makeSut = (): AccountMongodbRespository => {
+  return new AccountMongodbRespository()
+}
+
 describe('Account Mongodb Repository', () => {
   beforeAll(async () => {
     // await MongoHelper.connect(global.__MONGO_URI__)
@@ -13,7 +17,7 @@ describe('Account Mongodb Repository', () => {
   })
 
   it('should return account on success', async () => {
-    const sut = new AccountMongodbRespository()
+    const sut = makeSut()
 
     const account: IAccountModel = await sut.add({
       name: 'any_name',
@@ -26,7 +30,5 @@ describe('Account Mongodb Repository', () => {
     expect(account.name).toBe('any_name')
     expect(account.email).toBe('any_email@email.com')
     expect(account.password).toBe('any_password')
-
-    expect(1).toBe(1)
   })
 })
