@@ -1,0 +1,19 @@
+import { IAddAccountRepository } from '../../../../data/protocols/add-account-repository'
+import { IAccountModel } from '../../../../domain/models/account'
+import { IAddAccountModel } from '../../../../domain/usecases/add-account'
+import { MongoHelper } from '../helpers/mongodb-helper'
+
+export class AccountMongodbRespository implements IAddAccountRepository {
+  async add (accountData: IAddAccountModel): Promise<IAccountModel> {
+    const accountCollection = MongoHelper.getCollection('accounts')
+
+    const result = await accountCollection.insertOne(accountData)
+
+    const id = result.insertedId.toString()
+
+    return await new Promise(resolve => resolve({
+      id,
+      ...accountData
+    }))
+  }
+}
