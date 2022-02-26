@@ -1,10 +1,12 @@
-import { IAccountModel, IAddAccount, IAddAccountModel, IEncrypter } from './db-add-account-protocols'
+import { IAccountModel, IAddAccount, IAddAccountModel, IAddAccountRepository, IEncrypter } from './db-add-account-protocols'
 
 export class DbAddAccount implements IAddAccount {
-  constructor (private readonly encrypter: IEncrypter) {}
+  constructor (private readonly encrypter: IEncrypter, private readonly addAccountRepository: IAddAccountRepository) {}
 
-  async add (account: IAddAccountModel): Promise<IAccountModel> {
-    const hashedPassword = await this.encrypter.encrypt(account.password)
-    return await new Promise(resolve => resolve({ id: 'any_id', name: account.name, email: account.email, password: hashedPassword }))
+  async add (accountData: IAddAccountModel): Promise<IAccountModel> {
+    const hashedPassword = await this.encrypter.encrypt(accountData.password)
+    const accountDataWHash = { ...accountData, password: hashedPassword }
+    await this.addAccountRepository.add(accountDataWHash)
+    return await new Promise(resolve => resolve({ ...accountDataWHash, id: 'any_id' }))
   }
 }
