@@ -1,8 +1,6 @@
-import { IAccountModel } from '../../../domain/models/account'
-import { IAddAccount, IAddAccountModel } from '../../../domain/usecases/add-account'
 import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
-import { IEmailValidator } from '../../protocols'
 import { SingUpController } from './singup'
+import { IAccountModel, IAddAccount, IAddAccountModel, IEmailValidator } from './singup-protocols'
 
 interface SutType {
   sut: SingUpController
