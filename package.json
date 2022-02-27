@@ -10,6 +10,7 @@
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:unit:verbose": "jest --passWithNoTests --runInBand --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:integration:verbose": "jest --passWithNoTests --runInBand --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "clear_jest": "jest --clearCache"
@@ -44,6 +45,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
+    "fast-glob": "^3.2.11",
     "mongodb": "^4.4.0",
     "validator": "^13.7.0"
   }
