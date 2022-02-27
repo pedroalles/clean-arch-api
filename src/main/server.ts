@@ -1,5 +1,9 @@
-import app from './config/app'
+import env from '../main/config/env'
+import { MongoHelper } from '../infra/db/mongodb/helpers/mongodb-helper'
 
-const PORT = 5050
+const { PORT, mongoUrl } = env
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
+void MongoHelper.connect(mongoUrl).then(async () => {
+  const app = (await import('./config/app')).default
+  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
+}).catch(console.error)

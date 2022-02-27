@@ -1,4 +1,5 @@
 import { IAccountModel } from '../../../../domain/models/account'
+import env from '../../../../main/config/env'
 import { MongoHelper } from '../helpers/mongodb-helper'
 import { AccountMongodbRespository } from './account'
 
@@ -8,8 +9,7 @@ const makeSut = (): AccountMongodbRespository => {
 
 describe('Account Mongodb Repository', () => {
   beforeAll(async () => {
-    // await MongoHelper.connect(global.__MONGO_URI__)
-    await MongoHelper.connect(process.env.MONGO_URL as string)
+    await MongoHelper.connect(env.mongoUrl)
   })
 
   afterAll(async () => {
