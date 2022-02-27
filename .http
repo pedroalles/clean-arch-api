@@ -1,0 +1,10 @@
+POST http://localhost:5050/api/singup HTTP/1.1
+content-type: application/json
+
+{
+"name": "Pedro",
+"email": "pedro@gmail.com",
+"password": "123",
+"passwordConfirmation": "123"
+
+}
