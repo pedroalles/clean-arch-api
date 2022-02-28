@@ -13,7 +13,9 @@ export class AccountMongodbRespository implements IAddAccountRepository {
 
     return await new Promise(resolve => resolve({
       id,
-      ...accountData
+      name: accountData.name,
+      email: accountData.email,
+      password: accountData.password
     }))
   }
 }
