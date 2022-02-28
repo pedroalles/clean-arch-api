@@ -3,6 +3,10 @@ import env from '../../../../main/config/env'
 import { Collection } from 'mongodb'
 import { LogMongodbRespository } from './log'
 
+const makeSut = (): LogMongodbRespository => {
+  return new LogMongodbRespository()
+}
+
 describe('Log Mongodb Repository', () => {
   let errorCollection: Collection
 
@@ -20,8 +24,7 @@ describe('Log Mongodb Repository', () => {
   })
 
   it('should create an error log on success', async () => {
-    const sut = new LogMongodbRespository()
-
+    const sut = makeSut()
     await sut.logError('any_error')
     const count = await errorCollection.countDocuments()
 
