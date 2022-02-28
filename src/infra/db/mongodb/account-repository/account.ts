@@ -11,11 +11,11 @@ export class AccountMongodbRespository implements IAddAccountRepository {
 
     const id = result.insertedId.toString()
 
-    return await new Promise(resolve => resolve({
+    return {
       id,
       name: accountData.name,
       email: accountData.email,
       password: accountData.password
-    }))
+    }
   }
 }
