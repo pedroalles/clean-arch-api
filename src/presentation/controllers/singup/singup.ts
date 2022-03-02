@@ -1,12 +1,17 @@
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
-import { IAddAccount, IController, IEmailValidator, IHttpRequest, IHttpResponse } from './singup-protocols'
+import { IAddAccount, IController, IEmailValidator, IHttpRequest, IHttpResponse, IValidation } from './singup-protocols'
 
 export class SingUpController implements IController {
-  constructor (private readonly emailValidator: IEmailValidator, private readonly addAccount: IAddAccount) {}
+  constructor (
+    private readonly emailValidator: IEmailValidator,
+    private readonly addAccount: IAddAccount,
+    private readonly validation: IValidation
+  ) {}
 
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
+      this.validation.validate(httpRequest.body)
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) return badRequest(new MissingParamError(field))
