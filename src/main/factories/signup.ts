@@ -4,15 +4,11 @@ import { AccountMongodbRespository } from '../../infra/db/mongodb/account-reposi
 import { LogMongodbRespository } from '../../infra/db/mongodb/log-repository/log'
 import { SingUpController } from '../../presentation/controllers/singup/singup'
 import { IController } from '../../presentation/protocols'
-import { EmailValidatorAdapter } from '../../utils/email-validator-adapter'
 import { LogControllerDecorator } from '../decorators/log'
 import { makeSingUpValidation } from './signup-validation'
 
 export const makeSingUpController = (): IController => {
   const salt = 12
-
-  const emailValidatorAdapter =
-    new EmailValidatorAdapter()
 
   const bcryptAdapter =
     new BcryptAdapter(salt)
@@ -24,7 +20,7 @@ export const makeSingUpController = (): IController => {
     new DbAddAccount(bcryptAdapter, accountMongodbRespository)
 
   const singUpController =
-    new SingUpController(emailValidatorAdapter, dbAddAccount, makeSingUpValidation())
+    new SingUpController(dbAddAccount, makeSingUpValidation())
 
   const logMongodbRespository =
     new LogMongodbRespository()
