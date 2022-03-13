@@ -1,10 +1,10 @@
-import { DbAddAccount } from '../../data/usecases/add-account/db-add-account'
-import { BcryptAdapter } from '../../infra/criptography/bcrypt-adapter'
-import { AccountMongodbRespository } from '../../infra/db/mongodb/account-repository/account'
-import { LogMongodbRespository } from '../../infra/db/mongodb/log-repository/log'
-import { SingUpController } from '../../presentation/controllers/singup/singup'
-import { IController } from '../../presentation/protocols'
-import { LogControllerDecorator } from '../decorators/log'
+import { DbAddAccount } from '../../../data/usecases/add-account/db-add-account'
+import { BcryptAdapter } from '../../../infra/criptography/bcrypt-adapter'
+import { AccountMongodbRespository } from '../../../infra/db/mongodb/account-repository/account'
+import { LogMongodbRespository } from '../../../infra/db/mongodb/log-repository/log'
+import { SingUpController } from '../../../presentation/controllers/singup/singup'
+import { IController } from '../../../presentation/protocols'
+import { LogControllerDecorator } from '../../decorators/log'
 import { makeSingUpValidation } from './signup-validation'
 
 export const makeSingUpController = (): IController => {
