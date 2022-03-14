@@ -1,4 +1,4 @@
-import { badRequest, ok, serverError } from '../../helpers/http-helper'
+import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
 import { SingUpController } from './singup'
 import { IAccountModel, IAddAccount, IAddAccountModel, IHttpRequest, IValidation } from './singup-protocols'
 
