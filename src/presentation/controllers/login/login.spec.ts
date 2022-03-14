@@ -1,6 +1,6 @@
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { LoginController } from './login'
-import { IAuthentication, IHttpRequest, IValidation } from './login-protocols'
+import { IAuthentication, IAuthenticationModel, IHttpRequest, IValidation } from './login-protocols'
 
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
@@ -11,7 +11,7 @@ const makeFakeRequest = (): IHttpRequest => ({
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth (email: string, password: string): Promise<string> {
+    async auth (authentication: IAuthenticationModel): Promise<string> {
       return 'any_token'
     }
   }
@@ -52,7 +52,10 @@ describe('Login Controller', () => {
 
     await sut.handle(makeFakeRequest())
 
-    expect(authSpy).toHaveBeenCalledWith('any_email@email.com', 'any_password')
+    expect(authSpy).toHaveBeenCalledWith({
+      email: 'any_email@email.com',
+      password: 'any_password'
+    })
   })
 
   it('should return 401 if invalid credentials are provided', async () => {
