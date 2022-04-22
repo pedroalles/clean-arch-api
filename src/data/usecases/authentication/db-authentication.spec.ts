@@ -38,7 +38,7 @@ const makeHashCompareStub = (): IHashComparer => {
 const makeTokenGeneratorStub = (): ITokenGenerator => {
   class TokenGeneratorStub implements ITokenGenerator {
     async generate (id: string): Promise<string> {
-      return null
+      return await new Promise(resolve => resolve('any_token'))
     }
   }
   return new TokenGeneratorStub()
@@ -135,5 +135,13 @@ describe('DbAuthentication UseCase', () => {
     const promise = sut.auth(makeFakeAuthentication())
 
     await expect(promise).rejects.toThrow(new Error())
+  })
+
+  it('should call TokenGenerator with correct id', async () => {
+    const { sut } = makeSut()
+
+    const accessToken = await sut.auth(makeFakeAuthentication())
+
+    expect(accessToken).toBe('any_token')
   })
 })
